@@ -1,6 +1,6 @@
 import React from "react";
 import { Rewards } from "./Rewards";
-import { Friends } from "./Friends";
+import { Friends } from "./friends";
 
 const LevelTwo = () => {
     return (

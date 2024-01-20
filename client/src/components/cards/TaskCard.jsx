@@ -43,7 +43,7 @@ const TaskCard = () => {
             <div className='text-center'>
                 <p className="text-xl text-center font-action tracking-wide mb-1">Difficulty</p>
 
-                <div className="mb-2 grid grid-cols-3 gap-2">
+                <div className="mb-2  gap-2 flex flex-wrap">
                     <Chip
                         value="Easy"
                         variant="ghost"

@@ -1,5 +1,5 @@
 import React from "react";
-import Group from "../../assets/Group.svg"
+import Group from "../../assets/Group.svg";
 
 export const Friends = () => {
     return(

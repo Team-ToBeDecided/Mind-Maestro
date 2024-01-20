@@ -1,4 +1,4 @@
-import Sidenav from '../component/Sidenav';
+import Sidenav from '../components/Sidenav';
 import addTask from '../assets/AddTask.svg';
 
 

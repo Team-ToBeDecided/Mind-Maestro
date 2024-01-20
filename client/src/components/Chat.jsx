@@ -116,7 +116,7 @@ export const Chat = () => {
         setDesc("");
         setDifficulty("");
         setECT("");
-        navigate("/dashboard");
+        window.location.reload();
     };
 
     return (

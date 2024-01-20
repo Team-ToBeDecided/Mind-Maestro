@@ -3,6 +3,9 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/ge
 import { Input, Button, Spinner, IconButton } from "@material-tailwind/react";
 import ReactMarkdown from 'react-markdown';
 import usericon from "../assets/usericon.svg"
+import button from "../assets/StartButton.svg"
+import gemini from "../assets/Gemini.png"
+
 
 export const Chat = () => {
     const [text, setText] = useState("");
@@ -94,17 +97,26 @@ export const Chat = () => {
                                         style={{
                                             backgroundColor: "#6B6EAB",
                                             padding: "2px",
-                                            borderRadius: "5px",
+                                            borderRadius: "25px",
                                             width: "80%",
                                             display: "flex",
                                             // flexDirection: "row",
                                         }}
                                         className=" text-white"
                                     >
-                                        <ReactMarkdown className="p-3">{message.text}</ReactMarkdown>
+                                        <ReactMarkdown className="p-3 markdown" >{message.text}</ReactMarkdown>
                                         {/* <p className="p-3">{message.text}</p> */}
                                         {message.sender === "bot" && (
-                                            <img src={usericon} alt="user" style={{ margin: "8px 8px 0 0" }} />
+                                            <>
+                                                <div className="flex-grow">
+                                                    <img src={gemini} alt="user" style={{ margin: "8px 8px 0 0" }} className="h-10 w-10 bg-indigo-500 rounded-full shadow-md" />
+                                                    <IconButton color="indigo" size="sm" ripple="light" rounded={true} iconOnly={true} className="rounded-full my-2 mx-1 h-10 w-10">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                                                        </svg>
+                                                    </IconButton>
+                                                </div>
+                                            </>
                                         )}
                                     </div>
                                 </div>
@@ -114,20 +126,13 @@ export const Chat = () => {
                     <form className="flex items-center" onSubmit={handleFormSubmit}>
                         <Input
                             type="text"
-                            color="blue"
+                            color="indigo"
                             size="md"
                             label="What do you need help with?"
                             value={userInput}
                             onChange={handleInputChange}
                         />
-                        <Button className="ml-3"
-                            color="blue"
-                            size="md"
-                            ripple={true}
-                            type="submit" // make this button submit the form
-                        >
-                            Send
-                        </Button>
+                        <img src={button} alt="button" className="w-24 md:w-24 h-24 ml-5 cursor-pointer" onClick={handleFormSubmit} />
                     </form>
                 </div>
             </div>

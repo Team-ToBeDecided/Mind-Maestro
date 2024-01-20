@@ -41,3 +41,8 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #6B6EAB;
 }
+
+.markdown > * {
+    all: revert;
+  }
+  

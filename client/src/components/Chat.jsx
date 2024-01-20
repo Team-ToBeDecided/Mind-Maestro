@@ -48,7 +48,7 @@ export const Chat = () => {
         ];
 
         const parts = [
-            { text: "I have a task that I need to plan out. Here's what I need to do:" + userInput + " Can you help me create a schedule or plan in bullet points? The plan should be concise, with no more than seven bullet points, and cover the basic steps I need to take to complete this task.   " },
+            { text: "I have a task that I need to plan out. Here's what I need to do:" + userInput + " Can you help me create a schedule or plan in bullet points? The plan should be concise, with no more than seven bullet points, and cover the basic steps I need to take to complete this task." },
         ];
 
         setUserInput("");

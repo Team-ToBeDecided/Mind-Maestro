@@ -30,8 +30,7 @@ export const Landing = () => {
                 <div className='flex flex-row items-center justify-center'>
                         <p className="text-xl font-action font-bold absolute md:flex tracking-wide right-36 hidden wobble animate-wobble">START HERE</p>
                     <img src={Arrow} alt="logo" className="w-8 h-8 absolute right-24 hidden md:flex wobble animate-wobble" />
-                    {/* <img src={addTask} alt="logo" className="w-24 h-24 absolute right-0 cursor-pointer ml-3" onClick={() => { navigate('dashboard') }} /> */}
-                    <AddTask />
+                    <img src={addTask} alt="logo" className="w-24 h-24 absolute right-0 cursor-pointer ml-3" onClick={() => { navigate('dashboard') }} />
                 </div>
             </div>
             <div className='flex flex-col items-center justify-center pt-5 md:pt-0'>

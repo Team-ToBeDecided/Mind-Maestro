@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rh6_$(n%-#i+uaj_qrgy#hxqpa%uog*v2t1^zznw%^-*icc@33'
+SECRET_KEY = 'django-insecure-#3&!(&ush))@t%3o=^t-(d4-p^babt)-suk#%n3r$u8$zx)iy2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Libs
+    'rest_framework',
+    'corsheaders',
+    # Apps
+    'userauth',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Libs
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -121,3 +129,28 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# Custom settings
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+AUTH_USER_MODEL = 'userauth.User'
+
+# Google OAuth2 settings
+BASE_FRONTEND_URL = os.environ.get('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
+GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
+
+BASE_FRONTEND_URL = os.environ.get('DJANGO_BASE_FRONTEND_URL')
+
+
+
+# pastebin
+
+# https://console.cloud.google.com/apis/credentials?project=frosthacks
+
+# sample request
+# fwj
+# http://127.0.0.1:8000/auth/login/google/?code=4%2F0AZEOvhV5qNkTEnISqWASmWy0O6UaivxTrQvfc6RFUF9Hqxuezmz1EH-umQj0TkeJS_98Xw&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none

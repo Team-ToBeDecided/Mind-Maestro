@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
-import { Input, Button, Spinner, IconButton } from "@material-tailwind/react";
+import {
+    Input,
+    Button,
+    Spinner,
+    IconButton,
+    Popover,
+    PopoverHandler,
+    PopoverContent,
+    Typography,
+    Select,
+    Option
+} from "@material-tailwind/react";
 import ReactMarkdown from 'react-markdown';
 import usericon from "../assets/usericon.svg"
 import button from "../assets/StartButton.svg"
 import gemini from "../assets/Gemini.png"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 export const Chat = () => {
@@ -12,6 +25,12 @@ export const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState("");
     const [loading, setLoading] = useState(false);
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [ect, setECT] = useState("");
+
+    const navigate = useNavigate();
 
     const MODEL_NAME = "gemini-pro";
     const API_KEY = import.meta.env.VITE_API_KEY;
@@ -63,6 +82,7 @@ export const Chat = () => {
         });
 
         const response = result.response;
+        setDesc(response.text());
         setMessages([...messages, { text: userInput, sender: "user" }, { text: response.text(), sender: "bot" }]);
         setText("")
 
@@ -77,6 +97,28 @@ export const Chat = () => {
         setLoading(true); // prevent the form from refreshing the page
         run();
     }
+
+    const handleDifficultyChange = (e) => {
+        setDifficulty(e)
+    }
+
+    const handleTaskCreation = async () => {
+        const task = {
+            title: title,
+            description: desc,
+            difficulty: difficulty,
+            expected_completion_time : ect,
+            user: 1,
+            points: 69
+        };
+        await axios.post(`http://localhost:8000/tasks/tasks/`, task);
+        setTitle("");
+        setDesc("");
+        setDifficulty("");
+        setECT("");
+        window.location.href = "/dashboard";
+    };
+
     return (
         <>
             {loading && (
@@ -110,11 +152,28 @@ export const Chat = () => {
                                             <>
                                                 <div className="flex-grow">
                                                     <img src={gemini} alt="user" style={{ margin: "8px 8px 0 0" }} className="h-10 w-10 bg-indigo-500 rounded-full shadow-md" />
-                                                    <IconButton color="indigo" size="sm" ripple="light" rounded={true} iconOnly={true} className="rounded-full my-2 mx-1 h-10 w-10">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-                                                        </svg>
-                                                    </IconButton>
+                                                    <Popover placement="right" className="z-[999]">
+                                                        <PopoverHandler>
+                                                            <IconButton color="indigo" size="sm" className="rounded-full my-2 mx-1 h-10 w-10">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                                                                </svg>
+                                                            </IconButton>
+                                                        </PopoverHandler>
+                                                        <PopoverContent className="z-[9999] bg-[#EBEBF1] flex flex-col gap-5">
+                                                            <Typography color="black" variant="h6" className=" font-info">Finalizing</Typography>
+                                                            <Input type="text" color="indigo" size="md" label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                                                            {/* <Input type="text" color="indigo" size="md" label="Description" value={desc} onChange={(e) => setDesc(e.target.value)} /> */}
+                                                            <Select onChange={handleDifficultyChange} label="Difficulty" size="md">
+                                                                <Option value="easy">Easy</Option>
+                                                                <Option value="medium">Medium</Option>
+                                                                <Option value="hard">Hard</Option>
+                                                            </Select>
+                                                            {/* <Input type="text" color="indigo" size="md" label="Points" value={69} /> */}
+                                                            <Input type="number" color="indigo" size="md" label="Expected time to Complete" value={ect} onChange={(e)=>{setECT(e.target.value)}} />
+                                                            <Button color="indigo" onClick={handleTaskCreation}>Create Task</Button>
+                                                        </PopoverContent>
+                                                    </Popover>
                                                 </div>
                                             </>
                                         )}

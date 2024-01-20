@@ -87,27 +87,27 @@ const TaskCard = () => {
             <div className='text-center'>
                 <p className="text-xl text-center font-action tracking-wide mb-1">Difficulty</p>
                 {tasks.map((task, index) => (
-                  <div key={index} className={`mb-2 grid grid-cols-3 gap-2 ${isSmallScreen ? 'hidden' : ''}`}>
-                      {difficultyOptions.map((option) => (
-                        <Chip
-                          key={option.value}
-                          value={option.value}
-                          variant="ghost"
-                          color={option.color}
-                          onClick={() => { handleTaskDifficulty(option.value, task.id) }}
-                          icon={
-                            <Checkbox
-                              color={option.color}
-                              ripple={false}
-                              containerProps={{ className: "p-0" }}
-                              checked={selectedDifficulties[task.id] === option.value}
-                              className="-ml-px border-2 border-purple-900 before:hidden checked:border-green-900 checked:bg-green-900"
-                            />
-                          }
-                        />
-                      ))}
-                  </div>
-                  ))}
+                <div key={index} className={`mb-2 grid grid-cols-3 gap-2 ${isSmallScreen ? 'hidden' : ''}`}>
+                    {difficultyOptions.map((option) => (
+                      <Chip
+                        key={option.value}
+                        value={option.value}
+                        variant="ghost"
+                        color={option.color}
+                        onClick={() => { handleTaskDifficulty(option.value, task.id) }}
+                        icon={
+                          <Checkbox
+                            color={option.color}
+                            ripple={false}
+                            containerProps={{ className: "p-0" }}
+                            checked={selectedDifficulties[task.id] === option.value}
+                            className="-ml-px border-2 border-purple-900 before:hidden checked:border-green-900 checked:bg-green-900"
+                          />
+                        }
+                      />
+                    ))}
+                </div>
+                ))}
                 <div className={`mb-2 ${isSmallScreen ? 'block' : 'hidden'}`}>
                     <Select
                         options={difficultyOptions}
@@ -154,7 +154,9 @@ const TaskCard = () => {
 
             <div className='mb-2'>
                 <p className='text-xl text-center font-action tracking-wide mb-1'>Points</p>
-                <p className=''>{difficulty}</p>
+                {tasks.map((task, index) => (
+                  <p key={index}>{task.points}</p>
+                ))}
             </div>
 
             <div className="w-px bg-black mx-4"></div>

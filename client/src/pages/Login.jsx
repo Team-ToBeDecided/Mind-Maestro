@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import GoogleLoginButton from "../components/cards/GoogleLoginButton.jsx";
 import { UserAuth } from "../contexts/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Apps
     
     'tasks',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Libs
     'corsheaders.middleware.CorsMiddleware',
+    'channels.middleware.ChannelsMiddleware,'
 ]
 
 ROOT_URLCONF = 'backend.urls'

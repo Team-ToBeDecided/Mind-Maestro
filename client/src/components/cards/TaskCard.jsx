@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Chip, Checkbox } from "@material-tailwind/react";
 import Select from 'react-select';
 import vecotor from '../../assets/Vector.svg';
 import play from '../../assets/CustomIcons/Start.svg';
+import axios from 'axios';
 
 const difficultyOptions = [
   { value: 'Easy', label: 'Easy', color: 'green' },
@@ -13,6 +14,27 @@ const difficultyOptions = [
 const TaskCard = () => {
   const [difficulty, setDifficulty] = useState(null);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  let getTasks = async () => {
+    setLoading(true);
+    try {
+      let response = await axios.get(
+        `http://localhost:8000/tasks/tasks/`
+      );
+      let data = response.data;
+      setTasks(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   const handleDifficulty = (selectedDifficulty) => {
     setDifficulty(selectedDifficulty);
@@ -44,14 +66,11 @@ const TaskCard = () => {
       <div className="mb-2 max-h-max max-w-full">
         <p className='text-xl text-center font-action tracking-wide mb-1'>TASKS</p>
         <ol className='font-info'>
-          <li>Task 1</li>
-          <li>Task 2</li>
-          <li>Task 3</li>
-          <li>Task 4</li>
-          <li>Task 4</li>
-          <li>Task 4</li>
-          <li>Task 4</li>
-          <li>Task 4</li>
+          {tasks.map((task, index) => (
+            <li key={index}>
+              <p>{task.title}</p>
+            </li>
+          ))}
         </ol>
       </div>
 

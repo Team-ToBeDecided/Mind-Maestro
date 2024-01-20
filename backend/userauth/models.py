@@ -7,6 +7,7 @@ from django.db import models
 
 class User(AbstractUser, PermissionsMixin):
     # Add any additional fields you want in your custom user model
+    uid = models.CharField(null=True, unique=True, blank=True, max_length=250)
     email = models.CharField(max_length=250, unique=True, null=False, blank=False)
     REGISTRATION_CHOICES = [
         ('email', 'Email'),

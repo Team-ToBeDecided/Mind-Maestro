@@ -7,8 +7,9 @@ from rest_framework.response import Response
 from .mixins import PublicApiMixin, ApiErrorsMixin
 from .utils import google_get_access_token, google_get_user_info, generate_tokens_for_user
 from .models import User
-from rest_framework import status
+from rest_framework import status, filters
 from .serializers import UserSerializer
+from rest_framework import viewsets
 
 
 class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
@@ -64,3 +65,9 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
                 'refresh_token': str(refresh_token)
             }
             return Response(response_data, status=status.HTTP_200_OK)
+
+class UserView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['uid']

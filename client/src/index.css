@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Bebas+Neue&display=swap"); */
+
+
+@keyframes wobble {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-wobble {
+    animation: wobble 2s ease-in-out infinite;
+}
+
+   /* Customize the scrollbar width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Customize the scrollbar track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Customize the scrollbar handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Customize the scrollbar handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #6B6EAB;
+}

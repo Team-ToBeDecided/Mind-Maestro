@@ -16,6 +16,7 @@ const TaskCard = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedDifficulties, setSelectedDifficulties] = useState({});
 
   let getTasks = async () => {
     setLoading(true);
@@ -35,6 +36,13 @@ const TaskCard = () => {
   useEffect(() => {
     getTasks();
   }, []);
+
+  const handleTaskDifficulty = (selectedDifficulty, taskId) => {
+    setSelectedDifficulties(prevState => ({
+      ...prevState,
+      [taskId]: selectedDifficulty
+    }));
+  };
 
     const handleDifficulty = (selectedDifficulty) => {
         setDifficulty(selectedDifficulty);
@@ -78,26 +86,28 @@ const TaskCard = () => {
 
             <div className='text-center'>
                 <p className="text-xl text-center font-action tracking-wide mb-1">Difficulty</p>
-                <div className={`mb-2 grid grid-cols-3 gap-2 ${isSmallScreen ? 'hidden' : ''}`}>
-                    {difficultyOptions.map((option) => (
+                {tasks.map((task, index) => (
+                  <div key={index} className={`mb-2 grid grid-cols-3 gap-2 ${isSmallScreen ? 'hidden' : ''}`}>
+                      {difficultyOptions.map((option) => (
                         <Chip
-                            key={option.value}
-                            value={option.value}
-                            variant="ghost"
-                            color={option.color}
-                            onClick={() => { handleDifficulty(option.value) }}
-                            icon={
-                                <Checkbox
-                                    color={option.color}
-                                    ripple={false}
-                                    containerProps={{ className: "p-0" }}
-                                    checked={difficulty === option.value}
-                                    className="-ml-px border-2 border-purple-900 before:hidden checked:border-green-900 checked:bg-green-900"
-                                />
-                            }
+                          key={option.value}
+                          value={option.value}
+                          variant="ghost"
+                          color={option.color}
+                          onClick={() => { handleTaskDifficulty(option.value, task.id) }}
+                          icon={
+                            <Checkbox
+                              color={option.color}
+                              ripple={false}
+                              containerProps={{ className: "p-0" }}
+                              checked={selectedDifficulties[task.id] === option.value}
+                              className="-ml-px border-2 border-purple-900 before:hidden checked:border-green-900 checked:bg-green-900"
+                            />
+                          }
                         />
-                    ))}
-                </div>
+                      ))}
+                  </div>
+                  ))}
                 <div className={`mb-2 ${isSmallScreen ? 'block' : 'hidden'}`}>
                     <Select
                         options={difficultyOptions}

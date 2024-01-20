@@ -24,7 +24,7 @@ export const AddTask = () => {
                 <img src={addTask} alt="logo" className="w-24 h-24 absolute right-0 top-0 cursor-pointer ml-3" onClick={handleOpen} />
             </div>
             <Dialog open={open} handler={handleOpen} size='lg'>
-                <DialogHeader className='flex justify-center text-center bg-[#EBEBF1] rounded-t-xl '>SARTHI (Krishna To Your Arjun)</DialogHeader>
+                <DialogHeader className='text-center bg-[#EBEBF1] rounded-t-xl'>SARTHI</DialogHeader>
                 <DialogBody className='bg-[#e0dcec] rounded-b-xl max-h-[70vh] overflow-auto'>
                     <Chat />
                 </DialogBody>

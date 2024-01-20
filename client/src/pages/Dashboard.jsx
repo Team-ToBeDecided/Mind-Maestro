@@ -11,11 +11,8 @@ const Dashboard = () => {
     return (
         <>
             <Sidenav />
-            <div className='md:ml-40 mt-[-7rem]'>
-                <div className='flex flex-row items-center justify-center'>
-                    <AddTask />
-                    {/* <img src={addTask} alt="logo" className="w-24 h-24 absolute right-0 top-0 cursor-pointer ml-3" onClick={() => { navigate('deshbot') }} /> */}
-                </div>
+            <div className='md:ml-40'>
+                <AddTask />
                 <TaskCard />
                 <LevelTwo />
                 <LevelThree />

@@ -3,6 +3,9 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/ge
 import { Input, Button, Spinner, IconButton } from "@material-tailwind/react";
 import ReactMarkdown from 'react-markdown';
 import usericon from "../assets/usericon.svg"
+import Markdown from 'markdown-to-jsx';
+import gemini from "../assets/Gemini.png"
+
 
 export const Chat = () => {
     const [text, setText] = useState("");
@@ -92,6 +95,7 @@ export const Chat = () => {
                                     )}
                                     <div
                                         style={{
+                                            color: "white",
                                             backgroundColor: "#6B6EAB",
                                             padding: "2px",
                                             borderRadius: "5px",
@@ -99,12 +103,12 @@ export const Chat = () => {
                                             display: "flex",
                                             // flexDirection: "row",
                                         }}
-                                        className=" text-white"
                                     >
-                                        <ReactMarkdown className="p-3">{message.text}</ReactMarkdown>
+                                        <ReactMarkdown className="markdown p-3">{message.text}</ReactMarkdown>
+                                        {/* <Markdown>{message.text}</Markdown> */}
                                         {/* <p className="p-3">{message.text}</p> */}
                                         {message.sender === "bot" && (
-                                            <img src={usericon} alt="user" style={{ margin: "8px 8px 0 0" }} />
+                                            <img src={gemini} alt="user" style={{ margin: "8px 8px 0 0" }}  className="h-10 w-10 shadow-lg rounded-full bg-indigo-500"/>
                                         )}
                                     </div>
                                 </div>

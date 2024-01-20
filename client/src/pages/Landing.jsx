@@ -10,12 +10,62 @@ import Vouchers from '../assets/CustomIcons/vouchers.svg'
 import Callendar from '../assets/CustomIcons/callendar.svg'
 import { useNavigate } from 'react-router-dom';
 import { Card } from '@material-tailwind/react';
+import { UserAuth } from '../contexts/AuthContext';
+import axios from 'axios';
+import { useEffect } from 'react';
+
 
 export const Landing = () => {
 
     const [show, setShow] = useState("community");
 
+    const { googleSignIn, user } = UserAuth();
     const navigate = useNavigate();
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await googleSignIn();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const DjangoUser = async () => {
+
+        try {
+            const response = await axios.get("http://localhost:8000/users/?" + user.uid);
+
+            if (response.status === 200) {
+                if (response.data.length > 0) {
+                    // User exists, redirect to dashboard
+                    naviagte('/dashboard');
+                } else {
+                    // User does not exist, create user
+                    const createUserResponse = await axios.post("http://localhost:8000/users/", { uid: user.uid });
+
+                    if (createUserResponse.status === 201) {
+                        // User created, redirect to dashboard
+                        naviagte('/dashboard');
+                    } else {
+                        console.log("Error creating user");
+                    }
+                }
+            } else {
+                console.log("Error");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        if (user == null) {
+            naviagte('/login');
+        }
+        else {
+            DjangoUser();
+        }
+    }, [user]);
     return (
         <>
             <div className="flex flex-row items-center justify-between px-2 md:px-9 pt-3">
@@ -27,16 +77,16 @@ export const Landing = () => {
                     </div>
                 </div>
                 <div className='flex flex-row items-center justify-center'>
-                        <p className="text-xl font-action font-bold absolute md:flex tracking-wide right-36 hidden wobble animate-wobble">START HERE</p>
+                    <p className="text-xl font-action font-bold absolute md:flex tracking-wide right-36 hidden wobble animate-wobble">START HERE</p>
                     <img src={Arrow} alt="logo" className="w-8 h-8 absolute right-24 hidden md:flex wobble animate-wobble" />
-                    <img src={addTask} alt="logo" className="w-24 h-24 absolute right-0 cursor-pointer ml-3" onClick={() => { navigate('dashboard') }} />
+                    <img src={addTask} alt="logo" className="w-24 h-24 absolute right-0 cursor-pointer ml-3" onClick={handleGoogleSignIn} />
                 </div>
             </div>
             <div className='flex flex-col items-center justify-center pt-5 md:pt-0'>
                 <p className="md:text-3xl text-xl font-info tracking-wider">PLAN, SCHEDULE & ACCOMPLISH</p>
                 <p className="md:text-3xl text-xl font-info tracking-wider">TO GET VOUCHERS</p>
                 <p className="md:text-3xl text-xl font-info tracking-wider">WITH AI ON YOUR SIDE</p>
-                <img src={brain} alt="brain" className='md:w-1/5 md:h-auto cursor-pointer px-2' onClick={()=>{navigate('dashboard')}} />
+                <img src={brain} alt="brain" className='md:w-1/5 md:h-auto cursor-pointer px-2' onClick={handleGoogleSignIn} />
                 <p className="text-2xl font-action">DECLUTTER YOUR MIND NOW</p>
             </div>
             <div className="flex flex-wrap justify-center mt-[-1rem]">

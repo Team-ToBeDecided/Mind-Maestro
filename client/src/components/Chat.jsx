@@ -18,19 +18,24 @@ import button from "../assets/StartButton.svg"
 import gemini from "../assets/Gemini.png"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {UserAuth} from "../contexts/AuthContext";
 
 
 export const Chat = () => {
     const [text, setText] = useState("");
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState("");
-    const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [ect, setECT] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
+
+  const { user } = UserAuth();
+
+  console.log(user);
 
     const MODEL_NAME = "gemini-pro";
     const API_KEY = import.meta.env.VITE_API_KEY;
@@ -121,11 +126,11 @@ export const Chat = () => {
 
     return (
         <>
-            {loading && (
+            {/* {loading && (
                 <div className="flex items-center justify-center z-50 bg-transparent bg-opacity-50">
                     <Spinner className="h-16 w-16 text-[#6B6EAB]" color="indigo" />
                 </div>
-            )}
+            )} */}
             <div className="flex flex-col mr-auto ml-auto overflow-auto ">
                 <div className="w-full rounded shadow-lg p-6 mt-10 " style={{ backgroundColor: "" }}>
                     <div className="flex-grow overflow-y-auto mb-4 border border-gray-300 rounded overflow-auto">
@@ -133,7 +138,7 @@ export const Chat = () => {
                             <div key={index} className={`mb-4 ${message.sender === "user" ? "text-right" : ""}`}>
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: index % 2 === 0 ? "flex-end" : "flex-start" }}>
                                     {message.sender === "user" && (
-                                        <img src={usericon} alt="user" style={{ margin: "0 0 8px 8px" }} />
+                                        <img src={user.photoURL} alt="user" style={{ margin: "0 0 8px 8px" }} className="h-10 w-10 rounded-full" />
                                     )}
                                     <div
                                         style={{

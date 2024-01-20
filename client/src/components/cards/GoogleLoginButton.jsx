@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import GoogleButton from "react-google-button";
 import { UserAuth } from "../../contexts/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const GoogleLoginButton = () => {
     const { googleSignIn, user } = UserAuth();
@@ -15,11 +16,42 @@ const GoogleLoginButton = () => {
         }
     };
 
+    const DjangoUser = async () => {
+
+        try {
+            const response = await axios.get("http://localhost:8000/users/?format=json" + user.uid);
+
+            if (response.status === 200) {
+                if (response.data.length > 0) {
+                    // User exists, redirect to dashboard
+                    naviagte('/dashboard');
+                } else {
+                    // User does not exist, create user
+                    const createUserResponse = await axios.post("http://localhost:8000/users/", { uid: user.uid });
+
+                    if (createUserResponse.status === 201) {
+                        // User created, redirect to dashboard
+                        naviagte('/dashboard');
+                    } else {
+                        console.log("Error creating user");
+                    }
+                }
+            } else {
+                console.log("Error");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     useEffect(() => {
-        if (user != null) {
+        if (user == null) {
             naviagte('/login');
         }
-    }, [user, naviagte]);
+        else {
+            DjangoUser();
+        }
+    }, [user]);
 
     return <GoogleButton onClick={handleGoogleSignIn} />;
 }

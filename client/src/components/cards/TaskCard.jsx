@@ -73,7 +73,7 @@ const TaskCard = () => {
 
       <div className="mb-2 max-h-max max-w-full">
         <p className='text-xl text-center font-action tracking-wide mb-1'>TASKS</p>
-        <ol className='font-info'>
+        <ol className='font-info flex flex-col gap-2 sm:gap-4'>
           {tasks.map((task, index) => (
             <li key={index}>
               <p>{task.title}</p>
@@ -109,57 +109,68 @@ const TaskCard = () => {
                 </div>
                 ))}
                 <div className={`mb-2 ${isSmallScreen ? 'block' : 'hidden'}`}>
-                    <Select
-                        options={difficultyOptions}
-                        value={difficultyOptions.find((option) => option.value === difficulty)}
-                        onChange={(selectedOption) => handleDifficulty(selectedOption.value)}
-                        className="w-15 "
-                        components={{
-                            IndicatorSeparator: () => null,
-                            DropdownIndicator: () => null,
-                        }}
-                        styles={{
-                            option: (provided, state) => ({
-                                ...provided,
-                                fontSize: '0.6rem ',
-                            }),
-                            control: (provided) => ({
-                                ...provided,
-                                fontSize: '1rem p-1',
-                            }),
-                        }}
-                        formatOptionLabel={(option) => (
-                            <Chip
-                                key={option.value}
-                                value={option.value}
-                                variant="ghost"
-                                color={option.color}
-                                onClick={() => { handleDifficulty(option.value) }}
-                                icon={
-                                    <Checkbox
-                                        color={option.color}
-                                        ripple={false}
-                                        containerProps={{ className: "p-0" }}
-                                        checked={difficulty === option.value}
-                                        className="-ml-px border-2 border-green-900 before:hidden checked:border-green-900 checked:bg-green-900"
-                                    />
-                                }
-                            />
-                        )}
-                    />
+                <Select
+    options={difficultyOptions}
+    value={difficultyOptions.find((option) => option.value === difficulty)}
+    onChange={(selectedOption) => handleDifficulty(selectedOption.value)}
+    className="w-15 bg-transparent"
+    components={{
+        IndicatorSeparator: () => null,
+        DropdownIndicator: () => null,
+    }}
+    styles={{
+        option: (provided, state) => ({
+            ...provided,
+            fontSize: '0.4rem',
+            backgroundColor: state.isSelected || state.isFocused ? 'transparent' : provided.backgroundColor,
+            color: state.isSelected || state.isFocused ? 'yourColor' : provided.color,
+        }),
+        control: (provided) => ({
+            ...provided,
+            fontSize: '0.2rem p-1',
+            border: 'none',
+            backgroundColor: 'transparent',
+        }),
+        menu: (provided) => ({
+            ...provided,
+            backgroundColor: 'transparent',
+        }),
+    }}
+    formatOptionLabel={(option) => (
+        <Chip
+            key={option.value}
+            value={option.value}
+            variant="ghost"
+            color={option.color}
+            onClick={() => { handleDifficulty(option.value) }}
+            icon={
+                <Checkbox
+                    color={option.color}
+                    ripple={false}
+                    containerProps={{ className: "p-0" }}
+                    checked={difficulty === option.value}
+                    className="sm:-ml-px border-2 border-green-900 before:hidden checked:border-green-900 checked:bg-green-900"
+                />
+            }
+        />
+    )}
+/>
                 </div>
             </div>
 
             <div className="w-px bg-black mx-4"></div>
 
-            <div className='mb-2'>
-                <p className='text-xl text-center font-action tracking-wide mb-1'>Points</p>
+            <div className='mb-2 '>
+                <p className='text-xl text-center font-action tracking-wide mb-1 '>Points</p>
+                <div className='flex flex-col gap-2 sm:gap-4'>
                 {tasks.map((task, index) => (
+                    
                   <p key={index}>{task.points}</p>
                 ))}
+                </div>
             </div>
 
-            <div className="w-px bg-black mx-4"></div>
+            <div className="w-px bg-black mx-4  "></div>
 
             <div>
                 <img src={vecotor} alt="Scribble" className='w-full' />

@@ -10,7 +10,6 @@ import Vouchers from '../assets/CustomIcons/vouchers.svg'
 import Callendar from '../assets/CustomIcons/callendar.svg'
 import { useNavigate } from 'react-router-dom';
 import { Card } from '@material-tailwind/react';
-import { AddTask } from '../components/AddTask'
 
 export const Landing = () => {
 

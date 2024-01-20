@@ -1,11 +1,9 @@
 import React from 'react';
 import addTask from '../assets/AddTask.svg';
 import {
-    Button,
     Dialog,
     DialogHeader,
     DialogBody,
-    DialogFooter,
 } from "@material-tailwind/react";
 import { Chat } from './Chat';
 

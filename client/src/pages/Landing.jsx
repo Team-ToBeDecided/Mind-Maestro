@@ -44,8 +44,8 @@ export const Landing = () => {
                     const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
                         uid: user.uid,
                         email: user.email,
-                        first_name: user.displayName,
-                        // last_name: user.photoURL,
+                        name: user.displayName,
+                        profile_picture: user.photoURL,
                     });
                     if (createUserResponse.status === 201) {
                         // User created, redirect to dashboard

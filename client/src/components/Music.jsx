@@ -48,7 +48,7 @@ const MusicPlayer = () => {
                 <PopoverContent className='bg-transparent backdrop-blur-sm'>
                     <div className='flex gap-2'>
                         <input type="range" min="0" max="100" value={volume} onChange={handleVolumeChange} />
-                        <button onClick={togglePlayPause}>{isPlaying ? 'Pause' : 'Play'}</button>
+                        <button onClick={togglePlayPause} className='text-black'>{isPlaying ? 'Pause' : 'Play'}</button>
                     </div>
                 </PopoverContent>
             </Popover>

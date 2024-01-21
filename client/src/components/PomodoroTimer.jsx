@@ -37,7 +37,7 @@ const PomodoroTimer = () => {
         <Card className=' bg- shadow-lg drop-shadow-[50px_50px_50px_rgba(0,0,0,0.05)] backdrop-blur-sm absolute left-16 top-10'>
             <CardBody>
                 <div className='flex flex-col gap-3'>
-                    <span className='text-5xl font-action text-black'>Time Left- {formatTime()}</span>
+                    <span className='text-5xl font-action text-white'>Time Left- {formatTime()}</span>
                     <div className='flex gap-5 items-center justify-center'>
                         <Button onClick={() => setIsRunning(!isRunning)} color='indigo'>
                             {isRunning ? <PauseIcon className="h-3 w-3" /> : <PlayIcon className="h-3 w-3" />}

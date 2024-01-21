@@ -38,42 +38,47 @@ export const Landing = () => {
 
     useEffect(() => {
         async function DjangoUser() {
-            if (!user) return; // Add this line
-
-            try {
-                const response = await axios.get(`http://localhost:8000/auth/users/?search=${user.uid}/`);
-
-                if (response.status === 200) {
-                    console.log(response.data);
-                    if (!response.data || !response.data.uid) return;
-                    // User exists, redirect to dashboard
-                    navigate('/dashboard');
-                    // setLoading(false);
-                } else {
-                    // User does not exist, create user
-                    const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
-                        uid: user.uid,
-                        email: user.email,
-                        name: user.displayName,
-                        profile_picture: user.photoURL,
-                    });
-                    if (createUserResponse.status === 201) {
-                        // User created, redirect to dashboard
-                        navigate('/dashboard');
-                        // setLoading(false);
-                    } else {
-                        console.log("Error creating user");
-                        // setLoading(false);
-                    }
+          if (user?.uid === undefined) return;
+    
+          try {
+            const response = await axios.get(
+              `http://localhost:8000/auth/users/?search=${user.uid}/`
+            );
+    
+            if (response.status === 200) {
+              console.log(response.data);
+              if (!response.data) return;
+              // User exists, redirect to dashboard
+              navigate("/dashboard");
+              // setLoading(false);
+            } else {
+              // User does not exist, create user
+              const createUserResponse = await axios.post(
+                "http://localhost:8000/auth/users/",
+                {
+                  uid: user.uid,
+                  email: user.email,
+                  name: user.displayName,
+                  profile_picture: user.photoURL,
                 }
-            } catch (error) {
-                console.error(error);
-                setLoading(false);
+              );
+              if (createUserResponse.status === 201) {
+                // User created, redirect to dashboard
+                navigate("/dashboard");
+                // setLoading(false);
+              } else {
+                console.log("Error creating user");
+                // setLoading(false);
+              }
             }
+          } catch (error) {
+            console.error(error);
+            setLoading(false);
+          }
         }
-        DjangoUser();
-    }, [user]);
-
+        if (user !== null) DjangoUser();
+      }, [navigate, user]);
+    
     return (
         <>
             <div className="flex flex-row items-center justify-between px-2 md:px-9 pt-3">

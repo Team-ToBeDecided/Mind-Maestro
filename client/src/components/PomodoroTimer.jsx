@@ -9,7 +9,7 @@ const PomodoroTimer = () => {
 
     useEffect(() => {
         let timerId;
-        if (isRunning && !timeLeft) return 
+        if (isRunning && !timeLeft) return
 
         if (isRunning) {
             const timerId = setTimeout(() => {
@@ -21,7 +21,7 @@ const PomodoroTimer = () => {
     }, [timeLeft, isRunning]);
 
     useEffect(() => {
-        if(timeLeft === 0) {
+        if (timeLeft === 0) {
             alert('Time for Break!');
             setIsBreak(!isBreak);
             setTimeLeft(isBreak ? 5 * 60 : 25 * 60) //switch for work and break
@@ -34,16 +34,18 @@ const PomodoroTimer = () => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
     return (
-        <Card style={{ position: 'fixed', top: '20px', left: '20px', zIndex: 1000, backgroundColor: 'black' }}>
+        <Card className=' bg- shadow-lg drop-shadow-[50px_50px_50px_rgba(0,0,0,0.05)] backdrop-blur-sm absolute left-16 top-10'>
             <CardBody>
-            <div className='flex'>
-                <span className='text-5xl font-action'>Time Left: {formatTime()}</span>
-                    <Button onClick={() => setIsRunning(!isRunning)}>
-                        {isRunning ? <PauseIcon className="h-2 w-2" /> : <PlayIcon className="h-2 w-2" />}
-                    </Button>
-                    <Button onClick={() => setTimeLeft(0)}>
-                        <StopIcon className="h-2 w-2" />
-                    </Button>
+                <div className='flex flex-col gap-3'>
+                    <span className='text-5xl font-action text-black'>Time Left- {formatTime()}</span>
+                    <div className='flex gap-5 items-center justify-center'>
+                        <Button onClick={() => setIsRunning(!isRunning)} color='indigo'>
+                            {isRunning ? <PauseIcon className="h-3 w-3" /> : <PlayIcon className="h-3 w-3" />}
+                        </Button>
+                        <Button onClick={() => setTimeLeft(0)} color='indigo' >
+                            <StopIcon className="h-3 w-3" />
+                        </Button>
+                    </div>
                 </div>
             </CardBody>
         </Card>

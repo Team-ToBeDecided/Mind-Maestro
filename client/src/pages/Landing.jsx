@@ -36,7 +36,7 @@ export const Landing = () => {
 
             if (response.status === 200) {
                 console.log(response.data);
-                if (response.data && response.data.length > 0) {
+                if (response.data && response.data.uid === user.uid) {
                     // User exists, redirect to dashboard
                     navigate('/dashboard');
                 } else {

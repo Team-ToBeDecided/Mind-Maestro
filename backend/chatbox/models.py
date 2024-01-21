@@ -7,7 +7,7 @@ class Room(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    users = models.ManyToManyField('userauth.UserModel', related_name='rooms')
+    users = models.ManyToManyField('userauth.UserModel')
 
 class Message(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)

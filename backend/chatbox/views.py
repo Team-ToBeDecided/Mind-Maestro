@@ -8,6 +8,8 @@ from .serializers import *
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['users__uid']
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()

@@ -113,7 +113,7 @@ export const Chat = ({closeChat}) => {
             user: user.uid,
             points: points
         };
-        await axios.post(`http://localhost:8000/tasks/tasks/`, task);
+        await axios.post(`https://sh2pbpd4-8000.inc1.devtunnels.ms/tasks/tasks/`, task);
         setTitle("");
         setDesc("");
         setDifficulty("");

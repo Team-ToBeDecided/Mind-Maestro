@@ -42,7 +42,7 @@ export const Landing = () => {
     
           try {
             const response = await axios.get(
-              `http://localhost:8000/auth/users/?search=${user.uid}/`
+              `https://sh2pbpd4-8000.inc1.devtunnels.ms/auth/users/?search=${user.uid}/`
             );
     
             if (response.status === 200) {
@@ -54,7 +54,7 @@ export const Landing = () => {
             } else {
               // User does not exist, create user
               const createUserResponse = await axios.post(
-                "http://localhost:8000/auth/users/",
+                "https://sh2pbpd4-8000.inc1.devtunnels.ms/auth/users/",
                 {
                   uid: user.uid,
                   email: user.email,

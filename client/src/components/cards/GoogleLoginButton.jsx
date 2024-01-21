@@ -19,7 +19,7 @@ const GoogleLoginButton = () => {
     const DjangoUser = async () => {
 
         try {
-            const response = await axios.get("http://localhost:8000/users/?format=json" + user.uid);
+            const response = await axios.get("https://sh2pbpd4-8000.inc1.devtunnels.ms/users/?format=json" + user.uid);
 
             if (response.status === 200) {
                 if (response.data.length > 0) {
@@ -27,7 +27,7 @@ const GoogleLoginButton = () => {
                     naviagte('/dashboard');
                 } else {
                     // User does not exist, create user
-                    const createUserResponse = await axios.post("http://localhost:8000/users/", { uid: user.uid });
+                    const createUserResponse = await axios.post("https://sh2pbpd4-8000.inc1.devtunnels.ms/users/", { uid: user.uid });
 
                     if (createUserResponse.status === 201) {
                         // User created, redirect to dashboard

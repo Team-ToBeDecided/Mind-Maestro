@@ -42,7 +42,7 @@ const Room = () => {
   let getTasks = async () => {
     try {
       let response = await axios.get(
-        `http://localhost:8000/tasks/tasks/?search=${user.uid}`
+        `https://sh2pbpd4-8000.inc1.devtunnels.ms/tasks/tasks/?search=${user.uid}`
       );
       let data = response.data;
       setTasks(data);

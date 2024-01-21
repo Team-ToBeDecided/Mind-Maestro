@@ -4,6 +4,7 @@ import Select from 'react-select';
 import vecotor from '../../assets/Vector.svg';
 import play from '../../assets/CustomIcons/Start.svg';
 import axios from 'axios';
+import { UserAuth } from '../../contexts/AuthContext';
 
 const difficultyOptions = [
   { value: 'Easy', label: 'Easy', color: 'green' },
@@ -18,11 +19,17 @@ const TaskCard = () => {
   const [loading, setLoading] = useState(false);
   const [selectedDifficulties, setSelectedDifficulties] = useState({});
 
+  const { user } = UserAuth();
+
+  while (!user) {
+    setLoading(true);
+  }
+
   let getTasks = async () => {
     setLoading(true);
     try {
       let response = await axios.get(
-        `http://localhost:8000/tasks/tasks/`
+        `http://localhost:8000/tasks/tasks/?search=${user.uid}`
       );
       let data = response.data;
       setTasks(data);
@@ -35,7 +42,7 @@ const TaskCard = () => {
 
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [user]);
 
   const handleTaskDifficulty = (selectedDifficulty, taskId) => {
     setSelectedDifficulties(prevState => ({

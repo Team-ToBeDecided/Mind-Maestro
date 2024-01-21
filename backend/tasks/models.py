@@ -9,7 +9,7 @@ DIFFICULTY_CHOICES = [
 ]
 
 class Task(models.Model):
-    user = models.ForeignKey('userauth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('userauth.UserModel', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
     completed = models.BooleanField(default=False)

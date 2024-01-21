@@ -138,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-AUTH_USER_MODEL = 'userauth.User'
+# AUTH_USER_MODEL = 'userauth.User'
 
 # Google OAuth2 settings
 BASE_FRONTEND_URL = os.environ.get('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')

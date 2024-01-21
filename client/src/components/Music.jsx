@@ -9,7 +9,7 @@ import {
 const MusicPlayer = () => {
     const [volume, setVolume] = useState(50); // Initial volume level
     const [isPlaying, setIsPlaying] = useState(false); // State to control play and pause
-    const [audio, setAudio] = useState(null); // State to hold the audio element
+    const [audio, setAudio] = useState(null); // Final
 
 
     useEffect(() => {

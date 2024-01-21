@@ -6,7 +6,8 @@ import image1 from '../assets/himalaya.jpg';
 import image2 from '../assets/simson.jpg';
 import image3 from '../assets/snow.jpeg'
 import PomodoroTimer from '../components/PomodoroTimer';
-import { GlobeAltIcon } from '@heroicons/react/24/solid';
+import { PhotoIcon } from '@heroicons/react/24/solid';
+import { useLocation } from 'react-router-dom';
 const images = [image1, image2, image3];
 
 const Room = () => {
@@ -27,29 +28,33 @@ const Room = () => {
     };
   }, [walli]);
 
+  const location = useLocation();
+  const taskDirect = location.state?.task;
+
+  console.log(taskDirect);
+
   return (
     <>
-      <div style={{ backgroundImage: `url(${walli})` }}>
-        <Popover placement="bottom-start" >
-          <PopoverHandler>
-            <IconButton className="text-black w-6 h-6 fixed right-5 top-10">
-              <GlobeAltIcon className="h-6 w-6" />
-            </IconButton>
-          </PopoverHandler>
-          <PopoverContent className="flex bg-transparent backdrop-blur-sm">
-            {images.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={`Image ${index + 1}`}
-                style={{ width: '4vw', height: '4vw', margin: '0.5vw', cursor: 'pointer' }}
-                onClick={() => changeBackgroundImage(image)}
-              />
-            ))}
-          </PopoverContent>
-        </Popover>
-      </div>
+
       <div className="flex justify-between w-full mt-4 items-baseline">
+        <div style={{ backgroundImage: `url(${walli})` }}>
+          <Popover placement="bottom" >
+            <PopoverHandler>
+                <PhotoIcon className="h-6 w-6 text-white absolute right-10 cursor-pointer" />
+            </PopoverHandler>
+            <PopoverContent className="flex bg-transparent backdrop-blur-sm">
+              {images.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Image ${index + 1}`}
+                  style={{ width: '4vw', height: '4vw', margin: '0.5vw', cursor: 'pointer' }}
+                  onClick={() => changeBackgroundImage(image)}
+                />
+              ))}
+            </PopoverContent>
+          </Popover>
+        </div>
         {/* <Timer /> */}
         <PomodoroTimer />
         <div className="flex gap-4 mr-6 items-end">

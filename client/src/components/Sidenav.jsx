@@ -74,7 +74,7 @@ const Sidenav = () => {
                 </a>
               </li>
               <li className="">
-                <a href="/room" className="hover:text-blue-300 flex items-center">
+                <a href="#" className="hover:text-blue-300 flex items-center" onClick={()=>navigate('/room')}>
                   <img src={play} alt="play_logo" className="mr-2 w-5 h-5" />
                   ROOM
                 </a>

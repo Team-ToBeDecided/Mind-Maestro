@@ -43,30 +43,26 @@ export const Landing = () => {
 
                 if (response.status === 200) {
                     console.log(response.data);
-                    if (response.data.uid === null) return
-                    else if (response.data) {
-                        // User exists, redirect to dashboard
-                        navigate('/dashboard');
-                        setLoading(false);
-                    } else {
-                        // User does not exist, create user
-                        const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
-                            uid: user.uid,
-                            email: user.email,
-                            name: user.displayName,
-                            profile_picture: user.photoURL,
-                        });
-                        if (createUserResponse.status === 201) {
-                            // User created, redirect to dashboard
-                            navigate('/dashboard');
-                            setLoading(false);
-                        } else {
-                            console.log("Error creating user");
-                            setLoading(false);
-                        }
-                    }
+                    if (!response.data || response.data.uid !== user.uid) return;
+                    // User exists, redirect to dashboard
+                    navigate('/dashboard');
+                    // setLoading(false);
                 } else {
-                    console.log("Error");
+                    // User does not exist, create user
+                    const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
+                        uid: user.uid,
+                        email: user.email,
+                        name: user.displayName,
+                        profile_picture: user.photoURL,
+                    });
+                    if (createUserResponse.status === 201) {
+                        // User created, redirect to dashboard
+                        navigate('/dashboard');
+                        // setLoading(false);
+                    } else {
+                        console.log("Error creating user");
+                        // setLoading(false);
+                    }
                 }
             } catch (error) {
                 console.error(error);
@@ -77,7 +73,6 @@ export const Landing = () => {
             DjangoUser();
         }
     }, [user]);
-
 
     return (
         <>

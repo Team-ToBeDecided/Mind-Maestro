@@ -13,17 +13,21 @@ import { Card } from '@material-tailwind/react';
 import { UserAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Loader from '../components/loader/Loader'
 
 
 export const Landing = () => {
 
     const [show, setShow] = useState("community");
+    const [loading, setLoading] = useState(false);
 
-    const { googleSignIn, user } = UserAuth();
+    const { googleSignIn, user, changeLoading } = UserAuth();
     const navigate = useNavigate();
 
     const handleGoogleSignIn = async () => {
+        setLoading(true);
         try {
+            // changeLoading();
             await googleSignIn();
         } catch (error) {
             console.log(error);
@@ -39,6 +43,7 @@ export const Landing = () => {
                 if (response.data && response.data.uid === user.uid) {
                     // User exists, redirect to dashboard
                     navigate('/dashboard');
+                    setLoading(false);
                 } else {
                     // User does not exist, create user
                     const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
@@ -50,8 +55,10 @@ export const Landing = () => {
                     if (createUserResponse.status === 201) {
                         // User created, redirect to dashboard
                         navigate('/dashboard');
+                        setLoading(false);
                     } else {
                         console.log("Error creating user");
+                        setLoading(false);
                     }
                 }
             } else {
@@ -59,14 +66,17 @@ export const Landing = () => {
             }
         } catch (error) {
             console.error(error);
+            setLoading(false);
         }
     }
 
     useEffect(() => {
         DjangoUser();
     }, [user]);
+
     return (
         <>
+            {loading && <Loader />}
             <div className="flex flex-row items-center justify-between px-2 md:px-9 pt-3">
                 <div className='flex flex-row items-center justify-center'>
                     <img src={logo} alt="logo" className="w-24 h-24" />

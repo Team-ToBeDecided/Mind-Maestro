@@ -15,6 +15,10 @@ export const AuthContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     console.log('User', user)
 
+    const changeLoading = () => {
+        setLoading(!loading)
+    }
+
 
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -36,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ googleSignIn, logOut, user, loading, setLoading }}>
+        <AuthContext.Provider value={{ googleSignIn, logOut, user, loading, changeLoading }}>
             {children}
         </AuthContext.Provider>
     );

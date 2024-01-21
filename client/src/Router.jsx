@@ -7,11 +7,13 @@ import Room from "./pages/Room";
 
 export const Router = () => {
     return (
-        <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/room" element={<Room/>} />
-        </Routes>
+        <>
+            <Routes>
+                <Route path="/" element={<Landing />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/room" element={<Room />} />
+            </Routes>
+        </>
     )
 };

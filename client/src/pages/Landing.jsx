@@ -34,45 +34,48 @@ export const Landing = () => {
         }
     };
 
-    const DjangoUser = async () => {
-        try {
-            const response = await axios.get(`http://localhost:8000/auth/users/?search=${user.uid}/`);
 
-            if (response.status === 200) {
-                console.log(response.data);
-                if (response.data && response.data.uid === user.uid) {
-                    // User exists, redirect to dashboard
-                    navigate('/dashboard');
-                    setLoading(false);
-                } else {
-                    // User does not exist, create user
-                    const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
-                        uid: user.uid,
-                        email: user.email,
-                        name: user.displayName,
-                        profile_picture: user.photoURL,
-                    });
-                    if (createUserResponse.status === 201) {
-                        // User created, redirect to dashboard
+
+    useEffect(() => {
+        async function DjangoUser() {
+            try {
+                const response = await axios.get(`http://localhost:8000/auth/users/?search=${user.uid}/`);
+
+                if (response.status === 200) {
+                    console.log(response.data);
+                    if (response.data && response.data.uid === user.uid) {
+                        // User exists, redirect to dashboard
                         navigate('/dashboard');
                         setLoading(false);
                     } else {
-                        console.log("Error creating user");
-                        setLoading(false);
+                        // User does not exist, create user
+                        const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
+                            uid: user.uid,
+                            email: user.email,
+                            name: user.displayName,
+                            profile_picture: user.photoURL,
+                        });
+                        if (createUserResponse.status === 201) {
+                            // User created, redirect to dashboard
+                            navigate('/dashboard');
+                            setLoading(false);
+                        } else {
+                            console.log("Error creating user");
+                            setLoading(false);
+                        }
                     }
+                } else {
+                    console.log("Error");
                 }
-            } else {
-                console.log("Error");
+            } catch (error) {
+                console.error(error);
+                setLoading(false);
             }
-        } catch (error) {
-            console.error(error);
-            setLoading(false);
         }
-    }
 
-    useEffect(() => {
         DjangoUser();
     }, [user]);
+
 
     return (
         <>

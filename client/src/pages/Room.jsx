@@ -6,10 +6,11 @@ import image1 from '../assets/himalaya.jpg';
 import image2 from '../assets/simson.jpg';
 import image3 from '../assets/snow.jpeg'
 import PomodoroTimer from '../components/PomodoroTimer';
-import { PhotoIcon } from '@heroicons/react/24/solid';
+import { PhotoIcon, ArrowLeftIcon } from '@heroicons/react/24/solid';
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { UserAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const images = [image1, image2, image3];
 
@@ -21,6 +22,7 @@ const Room = () => {
   const changeBackgroundImage = (newImagePath) => {
     setWalli(newImagePath);
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.backgroundImage = `url(${walli})`;
@@ -58,6 +60,7 @@ const Room = () => {
 
       <div className="flex justify-between w-full mt-4 items-baseline">
         <div style={{ backgroundImage: `url(${walli})` }}>
+          <ArrowLeftIcon className="h-6 w-6 text-white absolute left-10 cursor-pointer" onClick={() => navigate('/dashboard')} />
           <Popover placement="bottom" >
             <PopoverHandler>
               <PhotoIcon className="h-6 w-6 text-white absolute right-10 cursor-pointer" />

@@ -122,11 +122,11 @@ export const Chat = ({closeChat}) => {
 
     return (
         <>
-            {/* {loading && (
+            {loading && (
                 <div className="flex items-center justify-center z-50 bg-transparent bg-opacity-50">
                     <Spinner className="h-16 w-16 text-[#6B6EAB]" color="indigo" />
                 </div>
-            )} */}
+            )}
             <div className="flex flex-col mr-auto ml-auto overflow-auto ">
                 <div className="w-full rounded shadow-lg p-6 mt-10 " style={{ backgroundColor: "" }}>
                     <div className="flex-grow overflow-y-auto mb-4 border border-gray-300 rounded overflow-auto">

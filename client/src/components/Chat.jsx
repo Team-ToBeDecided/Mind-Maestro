@@ -18,7 +18,7 @@ import button from "../assets/StartButton.svg"
 import gemini from "../assets/Gemini.png"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {UserAuth} from "../contexts/AuthContext";
+import { UserAuth } from "../contexts/AuthContext";
 
 
 export const Chat = () => {
@@ -28,14 +28,12 @@ export const Chat = () => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [difficulty, setDifficulty] = useState("");
-    const [ect, setECT] = useState("");
     const [loading, setLoading] = useState(false);
+    const [points, setPoints] = useState(0);
 
     const navigate = useNavigate();
 
-  const { user } = UserAuth();
-
-  console.log(user);
+    const { user } = UserAuth();
 
     const MODEL_NAME = "gemini-pro";
     const API_KEY = import.meta.env.VITE_API_KEY;
@@ -112,16 +110,15 @@ export const Chat = () => {
             title: title,
             description: desc,
             difficulty: difficulty,
-            expected_completion_time : ect,
-            user: 1,
-            points: 69
+            user: user.uid,
+            points: points
         };
         await axios.post(`http://localhost:8000/tasks/tasks/`, task);
         setTitle("");
         setDesc("");
         setDifficulty("");
-        setECT("");
-        window.location.href = "/dashboard";
+        const escEvent = new KeyboardEvent('keydown', { 'keyCode': 27, 'which': 27 });
+        document.dispatchEvent(escEvent);
     };
 
     return (
@@ -174,8 +171,7 @@ export const Chat = () => {
                                                                 <Option value="medium">Medium</Option>
                                                                 <Option value="hard">Hard</Option>
                                                             </Select>
-                                                            {/* <Input type="text" color="indigo" size="md" label="Points" value={69} /> */}
-                                                            <Input type="number" color="indigo" size="md" label="Expected time to Complete" value={ect} onChange={(e)=>{setECT(e.target.value)}} />
+                                                            <Input type="number" color="indigo" size="md" label="Points" value={points} onChange={(e) => setPoints(e.target.value)} />
                                                             <Button color="indigo" onClick={handleTaskCreation}>Create Task</Button>
                                                         </PopoverContent>
                                                     </Popover>

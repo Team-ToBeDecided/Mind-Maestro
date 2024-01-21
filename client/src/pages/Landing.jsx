@@ -43,7 +43,8 @@ export const Landing = () => {
 
                 if (response.status === 200) {
                     console.log(response.data);
-                    if (response.data && response.data.uid === user.uid) {
+                    if (response.data.uid === null) return;
+                    else if (response.data) {
                         // User exists, redirect to dashboard
                         navigate('/dashboard');
                         setLoading(false);
@@ -72,8 +73,9 @@ export const Landing = () => {
                 setLoading(false);
             }
         }
-
-        DjangoUser();
+        if (user !== null) {
+            DjangoUser();
+        }
     }, [user]);
 
 

@@ -38,12 +38,14 @@ export const Landing = () => {
 
     useEffect(() => {
         async function DjangoUser() {
+            if (!user) return; // Add this line
+
             try {
                 const response = await axios.get(`http://localhost:8000/auth/users/?search=${user.uid}/`);
 
                 if (response.status === 200) {
                     console.log(response.data);
-                    if (!response.data || response.data.uid !== user.uid) return;
+                    if (!response.data || !response.data.uid) return;
                     // User exists, redirect to dashboard
                     navigate('/dashboard');
                     // setLoading(false);
@@ -69,14 +71,11 @@ export const Landing = () => {
                 setLoading(false);
             }
         }
-        if (user.uid) {
-            DjangoUser();
-        }
+        DjangoUser();
     }, [user]);
 
     return (
         <>
-            {loading && <Loader />}
             <div className="flex flex-row items-center justify-between px-2 md:px-9 pt-3">
                 <div className='flex flex-row items-center justify-center'>
                     <img src={logo} alt="logo" className="w-24 h-24" />

@@ -11,11 +11,11 @@ export const Friends = () => {
                     </div>
                     <div className="text-2xl text-black font-info overflow-hidden hover:overflow-auto">
                         <ol>
-                            <li>Friend 1</li>
-                            <li>Friend 2</li>
-                            <li>Friend 3</li>
-                            <li>Friend 4</li>
-                            <li>Friend 5</li>
+                            <li>Harshal</li>
+                            <li>Pratham</li>
+                            <li>Sujal</li>
+                            <li>Dhruv</li>
+                            <li>Rahil</li>
                         </ol>
                     </div>
                 </div>

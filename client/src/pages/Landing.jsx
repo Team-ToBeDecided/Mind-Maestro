@@ -31,21 +31,25 @@ export const Landing = () => {
     };
 
     const DjangoUser = async () => {
-
         try {
-            const response = await axios.get("http://localhost:8000/users/?" + user.uid);
+            const response = await axios.get(`http://localhost:8000/auth/users/?search=${user.uid}/`);
 
             if (response.status === 200) {
-                if (response.data.length > 0) {
+                console.log(response.data);
+                if (response.data && response.data.length > 0) {
                     // User exists, redirect to dashboard
-                    naviagte('/dashboard');
+                    navigate('/dashboard');
                 } else {
                     // User does not exist, create user
-                    const createUserResponse = await axios.post("http://localhost:8000/users/", { uid: user.uid });
-
+                    const createUserResponse = await axios.post("http://localhost:8000/auth/users/", {
+                        uid: user.uid,
+                        email: user.email,
+                        first_name: user.displayName,
+                        // last_name: user.photoURL,
+                    });
                     if (createUserResponse.status === 201) {
                         // User created, redirect to dashboard
-                        naviagte('/dashboard');
+                        navigate('/dashboard');
                     } else {
                         console.log("Error creating user");
                     }
@@ -59,12 +63,7 @@ export const Landing = () => {
     }
 
     useEffect(() => {
-        if (user == null) {
-            naviagte('/login');
-        }
-        else {
-            DjangoUser();
-        }
+        DjangoUser();
     }, [user]);
     return (
         <>

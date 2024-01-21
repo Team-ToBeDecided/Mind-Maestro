@@ -6,12 +6,20 @@ import {
     DialogBody,
 } from "@material-tailwind/react";
 import { Chat } from './Chat';
+import { useNavigate } from 'react-router-dom';
 
 
 export const AddTask = () => {
     const [open, setOpen] = React.useState(false);
 
-    const handleOpen = () => setOpen(!open);
+    const navigate = useNavigate();
+
+    const handleOpen = () => {
+        setOpen(!open);
+        setTimeout(() => {
+            navigate('/dashboard');
+        }, 3000);
+    };
 
     console.log(open);
 
@@ -24,7 +32,7 @@ export const AddTask = () => {
             <Dialog open={open} handler={handleOpen} size='lg'>
                 <DialogHeader className='text-center bg-[#EBEBF1] rounded-t-xl flext justify-center'>SARTHI (Krishna to your Arjun)</DialogHeader>
                 <DialogBody className='bg-[#e0dcec] rounded-b-xl max-h-[70vh] overflow-auto'>
-                    <Chat />
+                    <Chat closeChat={handleOpen} />
                 </DialogBody>
             </Dialog>
         </>

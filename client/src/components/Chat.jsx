@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../contexts/AuthContext";
 
 
-export const Chat = () => {
+export const Chat = ({closeChat}) => {
     const [text, setText] = useState("");
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState("");
@@ -117,8 +117,7 @@ export const Chat = () => {
         setTitle("");
         setDesc("");
         setDifficulty("");
-        const escEvent = new KeyboardEvent('keydown', { 'keyCode': 27, 'which': 27 });
-        document.dispatchEvent(escEvent);
+        closeChat();
     };
 
     return (
